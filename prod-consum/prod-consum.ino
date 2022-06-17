@@ -1,10 +1,10 @@
 #define _REENTRANT
 
-#include "cpuProcess.h"
-#include "politica.h"
-#include "rdp.h"
-#include "monitor.h"
-
+#include "./rdp/rdp.h"
+#include "./politica/politica.h"
+#include "./monitor/monitor.h"
+#include "./dataStructures/dataStructures.h"
+#include "./cpuProcess/cpuProcess.h"
 #include <string.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -69,7 +69,7 @@ int main(){
     }
 
     for (int i = 0; i < (PRODUCTOR + CONSUMIDOR); i++)
-        pthread_create(&c[i], &atrib, (void *)(&tShooter[i])->metodos->run, (cpuProcess_o *)&tShooter[i]);
+        pthread_create(&c[i], &atrib, (void * (*)(void*))(&tShooter[i])->metodos->run, (cpuProcess_o *)&tShooter[i]);
 
     for (int i = 0; i < (PRODUCTOR + CONSUMIDOR); i++)
     {
