@@ -49,12 +49,12 @@ int main(){
     }
     if(new_rdp(&rdp)==ALLOC_ERROR)
     {
-        printf("ERROR DE ALOCACION\n");
+        Serial.print("ERROR DE ALOCACION\n");
         exit(1);
     }
     if(new_monitor(&mymonitor, mutex, espera, boolQuesWait, &rdp)==ALLOC_ERROR)
     {
-        printf("ERROR DE ALOCACION\n");
+        Serial.print("ERROR DE ALOCACION\n");
         exit(1);
     }
 
@@ -77,7 +77,7 @@ int main(){
     }
 
     if (DEBUG)
-        printf("\nFinalizo la ejecucion\n");
+        Serial.print("\nFinalizo la ejecucion\n");
         
     monitor->metodos->cleanMonitor(monitor);
     rdp.metodos->cleanRDP(&rdp);
