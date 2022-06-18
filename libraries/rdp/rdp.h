@@ -14,6 +14,7 @@
 #define PLACES 7
 #define BUFFERS 2
 #define DEBUG 1
+
 #define ERROR -5
 typedef struct rdp rdp_o;
 
@@ -50,7 +51,13 @@ struct rdp
 };
 
 // Funciones
+#ifdef __cplusplus
+extern "C" {
+#endif // __cplusplus
 
-int new_rdp(rdp_o *p_rdp);
+    int new_rdp(rdp_o *p_rdp);
 
+#ifdef __cplusplus
+}
+#endif // __cplusplus
 #endif
