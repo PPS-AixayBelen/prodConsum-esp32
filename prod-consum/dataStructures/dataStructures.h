@@ -33,7 +33,7 @@ struct matriz_methods
 {
     int (*alloc_matriz)(o_matriz *);
     void (*free_matriz)(o_matriz *);
-    int (*cargar_matriz_file)(o_matriz *, char *);
+    int (*cargar_matriz_string)(o_matriz *, char *);
 };
 
 struct matriz

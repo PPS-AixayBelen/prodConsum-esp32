@@ -50,13 +50,16 @@ extern int new_rdp(rdp_o *p_rdp)
     {
         return ALLOC_ERROR;
     }
-    p_rdp->Ineg.metodos->cargar_matriz_file(&p_rdp->Ineg, "Ineg");
+    char Ineg[56] = "0 1 0 0 1 0 0 0 1 0 0 0 0 0 1 0 0 0 0 1 1 1 0 0 0 1 0 0";
+    p_rdp->Ineg.metodos->cargar_matriz_string(&p_rdp->Ineg, Ineg);
 
     if (new_matriz(&p_rdp->I, PLACES, TRANSITIONS) == ALLOC_ERROR)
     {
         return ALLOC_ERROR;
     }
-    p_rdp->Ineg.metodos->cargar_matriz_file(&p_rdp->I, "Imatriz");
+    char Imatriz[64] = "0 -1 0 1 -1 0 1 0 -1 0 0 1 1 0 -1 0 0 1 0 -1 -1 -1 1 1 0 -1 1 0";
+    p_rdp->Ineg.metodos->cargar_matriz_string(&p_rdp->I, Imatriz);
+
 
     // TODO: Pasar a funcion que inicialice?
     for (int i = 0; i < TRANSITIONS; i++)

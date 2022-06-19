@@ -145,34 +145,29 @@ int copy(o_vector dst, o_vector src)
 }
 
 /**
- * @brief Carga desde un archivo de nombre nombreArchivo una matriz en la varible matriz de p_matriz
+ * @brief Carga desde un string matriz una matriz en la varible matriz de p_matriz
  * 
  * @param p_matriz Puntero a la estructura donde se debe cargar la matriz
- * @param nombreArchivo Cadena de caracteres con el nombre del archivo donde se encuentra la matriz
- * @return int -1 si ocurre un error al abrir el archivo, 0 si la carga se realiza correctamente.
+ * @param matriz Cadena de caracteres con la matriz
+ * @return 0 si la carga se realiza correctamente.
  */
-int cargar_matriz_file(o_matriz *p_matriz, char *nombreArchivo)
+int cargar_matriz_string(o_matriz *p_matriz, char *matriz)
 {
-    FILE *archivo = fopen(nombreArchivo, "r");
-    char linea[30];
     char *token;
-    int temp;
-    if (archivo == NULL)
-    {
-        printf("Error en apertura de archivo");
-        return READ_FILE_ERROR;
-    }
+    token = strtok(matriz," ");
+    p_matriz->matriz[0][0] = atoi(token);
+    int j = 1;
 
     for (int i = 0; i < p_matriz->filas; i++)
     {
-        for (int j = 0; j < p_matriz->columnas; j++)
+        for (j; j < p_matriz->columnas; j++)
         {
-            fscanf(archivo, "%d", &temp);
-            p_matriz->matriz[i][j] = temp;
+            token = strtok(NULL, " ");
+            p_matriz->matriz[i][j] = atoi(token);
         }
+        j=0;
     }
 
-    fclose(archivo);
     return READ_FILE_OK;
 }
 
