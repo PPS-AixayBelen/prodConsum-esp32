@@ -21,7 +21,7 @@ struct vector_methods v_methods = {
 struct matriz_methods m_methods = {
     .alloc_matriz = alloc_matriz,
     .free_matriz = free_matriz,
-    .cargar_matriz_file = cargar_matriz_file};
+    .cargar_matriz_string = cargar_matriz_string};
 
 /**
  * @brief Aloca memoria para un vector cuyo tamaño esta especificado en la variable size de p_vector.

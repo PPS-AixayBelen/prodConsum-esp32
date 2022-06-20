@@ -27,7 +27,14 @@ struct cpuProcess
 };
 
 // Funciones
+#ifdef __cplusplus
+extern "C" {
+#endif // __cplusplus
 
 void new_cpuProcess(cpuProcess_o *p_cpuProcess, int *processList, int processNum, monitor_o *monitor, int id);
+
+#ifdef __cplusplus
+}
+#endif // __cplusplus
 
 #endif

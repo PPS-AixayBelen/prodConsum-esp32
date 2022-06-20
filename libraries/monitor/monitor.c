@@ -83,7 +83,7 @@ void signalPoliticMonitor(monitor_o *monitor, int index)
     if (monitor->rdp->metodos->ifEnd(monitor->rdp))
     { // Si la politica devuelve -1 es porque no pudo despertar a nadie, me fijo si tengo que terminar
         if (DEBUG)
-            printf("No se pudo despertar a ningun hilo\n");
+            stringPrint("vector de disparo vacio o insensibilizado\n");
         monitor->end = 1;
 
         finalSignalPolitic(monitor);
@@ -131,7 +131,7 @@ int shoot(monitor_o *monitor, int index)
         {
             if(shootResult==ERROR)
             {
-                printf("ERROR DE ALOCACION. \n");
+                stringPrint("ERROR DE ALOCACION. \n");
                 exit(1);
             }
             if (monitor->end) // si ya se llego al final de la ejecucion, no se puede disparar nada
@@ -141,7 +141,8 @@ int shoot(monitor_o *monitor, int index)
             }
 
             if (DEBUG)
-                printf("me fui a dormir disparando %d, con shootResult = %d \n", index, shootResult);
+                stringPrint("me fui a dormir disparando \n");
+                //printf("me fui a dormir disparando %d, con shootResult = %d \n", index, shootResult);
 
             monitor->boolQuesWait[index] += 1; // se setea un 1 en la transicion en la que se durmio el hilo
             pthread_cond_wait(&(monitor->espera[index]), &(monitor->mutex));
@@ -172,7 +173,7 @@ int shoot(monitor_o *monitor, int index)
     {
         if (!verifyMInvariants(monitor))
         {
-            printf("Error de invariantes\n");
+            stringPrint("Error de invariantes\n");
             exit(1); // rompiose
         }
     }

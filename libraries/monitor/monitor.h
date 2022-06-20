@@ -5,8 +5,8 @@
 // versions of several functions in the C library.
 #define _REENTRANT
 #include <pthread.h>
-#include "rdp.h"
-#include "politica.h"
+#include <rdp.h>
+#include <politica.h>
 #define TEST_INVARIANTS 1
 
 typedef struct monitor monitor_o;
@@ -49,6 +49,14 @@ struct monitor
     const struct monitor_metodos *metodos;
 };
 
+// Funciones
+#ifdef __cplusplus
+extern "C" {
+#endif // __cplusplus
+
 int new_monitor(monitor_o *p_monitor, pthread_mutex_t mutex, pthread_cond_t *espera, int *boolQuesWait, rdp_o *rdp);
 
+#ifdef __cplusplus
+}
+#endif // __cplusplus
 #endif

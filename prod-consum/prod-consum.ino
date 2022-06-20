@@ -1,25 +1,27 @@
-#define _REENTRANT
-
-#include "./rdp/rdp.h"
-#include "./politica/politica.h"
-#include "./monitor/monitor.h"
-#include "./dataStructures/dataStructures.h"
-#include "./cpuProcess/cpuProcess.h"
-#include <string.h>
-#include <stdio.h>
-#include <stdlib.h>
+#include <dataStructures.h>
+#include <rdp.h>
+#include <monitor.h>
+#include <politica.h>
 #include <pthread.h>
+#include <cpuProcess.h>
+
+void loop() {}
 
 void setup() {
    Serial.begin(115200);
    main();
-
 }
 
-void loop() { }
-
+void printVector(o_vector p_vector)
+{
+     Serial.print("{ ");
+     for (int i = 0; i < p_vector.size; i++)
+     {
+         Serial.print(p_vector.vector[i]);
+     }
+     Serial.print("}\n");
+}
 int main(){
-  
     pthread_attr_t atrib;
     pthread_t c[5];
 
@@ -81,5 +83,4 @@ int main(){
         
     monitor->metodos->cleanMonitor(monitor);
     rdp.metodos->cleanRDP(&rdp);
-  
 }
