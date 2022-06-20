@@ -5,5 +5,5 @@ extern "C" {
 }
 
 void stringPrint(const char *msg) {
-  Serial.println(msg);
+  Serial.print(msg);
 }

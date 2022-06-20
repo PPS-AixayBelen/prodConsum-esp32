@@ -83,7 +83,7 @@ void signalPoliticMonitor(monitor_o *monitor, int index)
     if (monitor->rdp->metodos->ifEnd(monitor->rdp))
     { // Si la politica devuelve -1 es porque no pudo despertar a nadie, me fijo si tengo que terminar
         if (DEBUG)
-            stringPrint("vector de disparo vacio o insensibilizado\n");
+            stringPrint("vector de disparo vacio o insensibilizado.\n");
         monitor->end = 1;
 
         finalSignalPolitic(monitor);
@@ -131,7 +131,7 @@ int shoot(monitor_o *monitor, int index)
         {
             if(shootResult==ERROR)
             {
-                stringPrint("ERROR DE ALOCACION. \n");
+                stringPrint("ERROR DE ALOCACION.\n");
                 exit(1);
             }
             if (monitor->end) // si ya se llego al final de la ejecucion, no se puede disparar nada
@@ -141,8 +141,19 @@ int shoot(monitor_o *monitor, int index)
             }
 
             if (DEBUG)
-                stringPrint("me fui a dormir disparando \n");
-                //printf("me fui a dormir disparando %d, con shootResult = %d \n", index, shootResult);
+            {
+                char aux2[100]="";
+                strcat(aux2,"me fui a dormir disparando ");
+                char aux[10]="";
+                itoa( index,aux,10);
+                strcat(aux2,aux);
+                strcat(aux2,", con shootResult = ");
+                char aux3[10] = "";
+                itoa(shootResult,aux3,10);
+                strcat(aux2,aux3);
+                strcat(aux2,"\n");
+                stringPrint(aux2);
+            }
 
             monitor->boolQuesWait[index] += 1; // se setea un 1 en la transicion en la que se durmio el hilo
             pthread_cond_wait(&(monitor->espera[index]), &(monitor->mutex));
@@ -173,7 +184,7 @@ int shoot(monitor_o *monitor, int index)
     {
         if (!verifyMInvariants(monitor))
         {
-            stringPrint("Error de invariantes\n");
+            stringPrint("Error de invariantes.\n");
             exit(1); // rompiose
         }
     }

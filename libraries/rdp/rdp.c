@@ -182,7 +182,7 @@ int isPos(rdp_o *rdp, int *index)
         if (mPrima.vector[n] < 0)
         {
             if (DEBUG)
-                stringPrint("la transicion no se puede disparar, marcado resultante negativo\n");
+                stringPrint("la transicion no se puede disparar, marcado resultante negativo.\n");
             aux.v_methods->free_vector(&aux);
             aux2.v_methods->free_vector(&aux2);
             mPrima.v_methods->free_vector(&mPrima);
