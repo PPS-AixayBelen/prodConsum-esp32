@@ -171,13 +171,22 @@ int isPos(rdp_o *rdp, int *index)
         return ERROR;
     }
 
-    // if (DEBUG)
-        // Serial.print("Nuevo marcado: \n");
+    if (DEBUG)
+        Serial.print("Nuevo marcado: \n");
     for (int n = 0; n < PLACES; n++) // Si algun numero del nuevo vector de marcado es negativo, no puedo dispararla
     {
         mPrima.vector[n] = rdp->M.vector[n] + aux2.vector[n]; // Sumo para obtener el nuevo vector de marcado
-        // if (DEBUG)
-            // Serial.print("%d %s \n", mPrima.vector[n], M_name[n]);
+        if (DEBUG)
+        {
+            char aux2[100]="";
+            char aux[10]="";
+            itoa(mPrima.vector[n],aux,10);
+            strcat(aux2,aux);
+            strcat(aux2," ");
+            strcat(aux2, M_name[n]);
+            strcat(aux2,"\n");
+            stringPrint(aux2);
+        }
 
         if (mPrima.vector[n] < 0)
         {
