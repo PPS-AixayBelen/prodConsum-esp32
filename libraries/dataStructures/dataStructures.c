@@ -50,12 +50,17 @@ int alloc_vector(o_vector *p_vector)
  */
 void print(o_vector p_vector)
 {
-    printf("{ ");
+    char aux [100];
+    strcat(aux,"{ ");
     for (int i = 0; i < p_vector.size; i++)
     {
-        printf("%d ", p_vector.vector[i]);
+        char aux2[10]="";
+        itoa(p_vector.vector[i],aux2,10);
+        strcat(aux,aux2);
+        strcat(aux," ");
     }
-    printf("}\n");
+    strcat(aux,"}\n");
+    stringPrint(aux);
 }
 
 /**
