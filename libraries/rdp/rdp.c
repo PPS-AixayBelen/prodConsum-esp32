@@ -137,7 +137,7 @@ int isPos(rdp_o *rdp, int *index)
     if (zeroCounter == 0)
     {
         if (DEBUG)
-            stringPrint("vector de disparo vacio o insensibilizado\n");
+            stringPrint("vector de disparo vacio o insensibilizado.\n");
         aux.v_methods->free_vector(&aux);
         return -1;
     }
