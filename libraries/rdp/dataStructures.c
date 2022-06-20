@@ -50,12 +50,12 @@ int alloc_vector(o_vector *p_vector)
  */
 void print(o_vector p_vector)
 {
-    printf("{ ");
-    for (int i = 0; i < p_vector.size; i++)
-    {
-        printf("%d ", p_vector.vector[i]);
-    }
-    printf("}\n");
+    stringPrint("{ ");
+    // for (int i = 0; i < p_vector.size; i++)
+    // {
+    //     Serial.print("%d ", p_vector.vector[i]);
+    // }
+    stringPrint("}\n");
 }
 
 /**
@@ -159,7 +159,7 @@ int cargar_matriz_file(o_matriz *p_matriz, char *nombreArchivo)
     int temp;
     if (archivo == NULL)
     {
-        printf("Error en apertura de archivo");
+        stringPrint("Error en apertura de archivo");
         return READ_FILE_ERROR;
     }
 

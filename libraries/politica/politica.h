@@ -28,7 +28,13 @@ struct politica
 };
 
 // Funciones
+#ifdef __cplusplus
+extern "C" {
+#endif // __cplusplus
 
 void new_politica(politica_o *p_politica, rdp_o *rdp);
 
+#ifdef __cplusplus
+}
+#endif // __cplusplus
 #endif

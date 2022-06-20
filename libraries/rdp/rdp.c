@@ -137,7 +137,7 @@ int isPos(rdp_o *rdp, int *index)
     if (zeroCounter == 0)
     {
         if (DEBUG)
-            printf("vector de disparo vacio o insensibilizado\n");
+            stringPrint("vector de disparo vacio o insensibilizado.\n");
         aux.v_methods->free_vector(&aux);
         return -1;
     }
@@ -168,18 +168,18 @@ int isPos(rdp_o *rdp, int *index)
         return ERROR;
     }
 
-    if (DEBUG)
-        printf("Nuevo marcado: \n");
+    // if (DEBUG)
+        // Serial.print("Nuevo marcado: \n");
     for (int n = 0; n < PLACES; n++) // Si algun numero del nuevo vector de marcado es negativo, no puedo dispararla
     {
         mPrima.vector[n] = rdp->M.vector[n] + aux2.vector[n]; // Sumo para obtener el nuevo vector de marcado
-        if (DEBUG)
-            printf("%d %s \n", mPrima.vector[n], M_name[n]);
+        // if (DEBUG)
+            // Serial.print("%d %s \n", mPrima.vector[n], M_name[n]);
 
         if (mPrima.vector[n] < 0)
         {
             if (DEBUG)
-                printf("la transicion no se puede disparar, marcado resultante negativo\n");
+                stringPrint("la transicion no se puede disparar, marcado resultante negativo\n");
             aux.v_methods->free_vector(&aux);
             aux2.v_methods->free_vector(&aux2);
             mPrima.v_methods->free_vector(&mPrima);
@@ -195,8 +195,8 @@ int isPos(rdp_o *rdp, int *index)
     if (index[0] == 1)
     {
         rdp->packetCounter = rdp->packetCounter + 1;
-        if (DEBUG)
-            printf("\nNuevo paquete ahora tengo: %d\n", rdp->packetCounter);
+        // if (DEBUG)
+            // Serial.print("\nNuevo paquete ahora tengo: %d\n", rdp->packetCounter);
     }
 
     for (int m = 0; m < TRANSITIONS; m++)
@@ -214,7 +214,7 @@ int isPos(rdp_o *rdp, int *index)
     }
     if (DEBUG)
     {
-        printf("Nuevo sensiblizado : ");
+        stringPrint("Nuevo sensiblizado : ");
         rdp->Sensitized.v_methods->print(rdp->Sensitized);
     }
 
