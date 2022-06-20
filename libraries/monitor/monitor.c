@@ -173,7 +173,7 @@ int shoot(monitor_o *monitor, int index)
     {
         if (!verifyMInvariants(monitor))
         {
-            stringPrint("Error de invariantes\n")
+            stringPrint("Error de invariantes\n");
             exit(1); // rompiose
         }
     }
