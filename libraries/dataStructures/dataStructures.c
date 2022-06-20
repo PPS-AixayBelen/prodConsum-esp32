@@ -9,7 +9,7 @@ void cargar_vector(o_vector* vector, char *v);
 
 int alloc_matriz(o_matriz *p_matriz);
 void free_matriz(o_matriz *p_matriz);
-int cargar_matriz_file(o_matriz *p_matriz, char *nombreArchivo);
+int cargar_matriz_string(o_matriz *p_matriz, char *matriz);
 
 struct vector_methods v_methods = {
     .alloc_vector = alloc_vector,
