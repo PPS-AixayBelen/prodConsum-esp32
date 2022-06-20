@@ -50,7 +50,7 @@ int alloc_vector(o_vector *p_vector)
  */
 void print(o_vector p_vector)
 {
-    char aux [100];
+    char aux [100]="";
     strcat(aux,"{ ");
     for (int i = 0; i < p_vector.size; i++)
     {

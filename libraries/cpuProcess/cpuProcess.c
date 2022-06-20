@@ -13,17 +13,7 @@ void *run(cpuProcess_o *cpuProcess)
 
     if (DEBUG)
     {
-        char aux2[100]="";
-        strcat(aux2,"VOY A DISPARAR: ");
-        char aux[10]="";
-        itoa(cpuProcess->processList[0],aux,10);
-        strcat(aux2,aux);
-        strcat(aux2," y soy el hilo con id ");
-        char aux3[10] = "";
-        itoa(cpuProcess->id,aux3,10);
-        strcat(aux2,aux3);
-        strcat(aux2,"\n");
-        stringPrint(aux2);
+        stringPrintWithParam("VOY A DISPARAR: ",cpuProcess->processList[0]," y soy el hilo con id ",cpuProcess->id);
     }
     // sleep(1);
     int shootResult = 0;
@@ -32,35 +22,13 @@ void *run(cpuProcess_o *cpuProcess)
         for (int i = 0; i < (cpuProcess->processNum); i++)
         {
             if (DEBUG)
-            {
-                char aux2[100]="";
-                strcat(aux2,"Nro de transicion a disparar: ");
-                char aux[10]="";
-                itoa(cpuProcess->processList[i],aux,10);
-                strcat(aux2,aux);
-                strcat(aux2," y soy el hilo con id ");
-                char aux3[10] = "";
-                itoa(cpuProcess->id,aux3,10);
-                strcat(aux2,aux3);
-                strcat(aux2,"\n");
-                stringPrint(aux2);
-            }
+                stringPrintWithParam("Nro de transicion a disparar: ",cpuProcess->processList[i]," y soy el hilo con id ",cpuProcess->id);
+                
             shootResult = cpuProcess->monitor->metodos->shoot(cpuProcess->monitor, cpuProcess->processList[i]);
 
             if (DEBUG)
-            {
-                char aux2[100]="";
-                strcat(aux2,"shootResult - ");
-                char aux[10]="";
-                itoa( shootResult,aux,10);
-                strcat(aux2,aux);
-                strcat(aux2," disparo- ");
-                char aux3[10] = "";
-                itoa(cpuProcess->processList[i],aux3,10);
-                strcat(aux2,aux3);
-                strcat(aux2,"\n");
-                stringPrint(aux2);
-            }
+            stringPrintWithParam("shootResult - ",shootResult," disparo- ",cpuProcess->processList[i]);
+            
 
             if (shootResult == -1)
             {
