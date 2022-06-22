@@ -1,5 +1,4 @@
 #include "rdp.h"
-//#include "leerMatriz.h"
 #include "time.h"
 #include <stdio.h>
 #include <stdlib.h>
@@ -172,7 +171,7 @@ int isPos(rdp_o *rdp, int *index)
     }
 
     if (DEBUG)
-        Serial.print("Nuevo marcado: \n");
+        stringPrint("Nuevo marcado: \n");
     for (int n = 0; n < PLACES; n++) // Si algun numero del nuevo vector de marcado es negativo, no puedo dispararla
     {
         mPrima.vector[n] = rdp->M.vector[n] + aux2.vector[n]; // Sumo para obtener el nuevo vector de marcado

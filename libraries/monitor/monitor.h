@@ -45,7 +45,7 @@ struct monitor
     politica_o *politica;
     rdp_o *rdp;
     int end;
-    char *logInvTransicion;
+    // char *logInvTransicion;
     const struct monitor_metodos *metodos;
 };
 

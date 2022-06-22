@@ -3,28 +3,28 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-/**
- * @brief Concatena la cadena de caracteres que corresponde a la transicion
- *  disparada en la variable logInvTransicion de monitor, aloca la memoria 
- * necesaria para esto.
- * 
- * @param monitor 
- * @param index Indice que corresponde a la transicion disparada.
- */
-void logInvarianteTransicion(monitor_o *monitor, int index)
-{
-    char *transicion[4] = {"T0", "T1", "T2", "T3"};
-    if (monitor->logInvTransicion == NULL)
-    {
-        monitor->logInvTransicion = (char *)malloc(sizeof(char) * 3);
-        strcpy(monitor->logInvTransicion, transicion[index]);
-    }
-    else
-    {
-        monitor->logInvTransicion = (char *)realloc(monitor->logInvTransicion, sizeof(char) * (strlen(monitor->logInvTransicion) + 3));
-        strcat(monitor->logInvTransicion, transicion[index]);
-    }
-}
+// /**
+//  * @brief Concatena la cadena de caracteres que corresponde a la transicion
+//  *  disparada en la variable logInvTransicion de monitor, aloca la memoria 
+//  * necesaria para esto.
+//  * 
+//  * @param monitor 
+//  * @param index Indice que corresponde a la transicion disparada.
+//  */
+// void logInvarianteTransicion(monitor_o *monitor, int index)
+// {
+//     char *transicion[4] = {"T0", "T1", "T2", "T3"};
+//     if (monitor->logInvTransicion == NULL)
+//     {
+//         monitor->logInvTransicion = (char *)malloc(sizeof(char) * 3);
+//         strcpy(monitor->logInvTransicion, transicion[index]);
+//     }
+//     else
+//     {
+//         monitor->logInvTransicion = (char *)realloc(monitor->logInvTransicion, sizeof(char) * (strlen(monitor->logInvTransicion) + 3));
+//         strcat(monitor->logInvTransicion, transicion[index]);
+//     }
+// }
 
 /**
  * @brief Verifica los invariantes de plaza de la red de petri. 
@@ -53,7 +53,7 @@ int verifyMInvariants(monitor_o *monitor)
 void cleanMonitor(monitor_o *monitor)
 {
     free(monitor->politica);
-    free(monitor->logInvTransicion);
+    // free(monitor->logInvTransicion);
 }
 
 /**
@@ -160,10 +160,10 @@ int shoot(monitor_o *monitor, int index)
         }
         else if (shootResult == 0)
         {
-            if (TEST_INVARIANTS)
-            {
-                logInvarianteTransicion(monitor, index);
-            }
+            // if (TEST_INVARIANTS)
+            // {
+            //     logInvarianteTransicion(monitor, index);
+            // }
 
             if (monitor->boolQuesWait[index] > 0)
             {
@@ -220,7 +220,7 @@ extern int new_monitor(monitor_o *p_monitor, pthread_mutex_t mutex, pthread_cond
     p_monitor->rdp = rdp;
     p_monitor->mutex = mutex;
     p_monitor->espera = espera;
-    p_monitor->logInvTransicion = NULL;
+    // p_monitor->logInvTransicion = NULL;
     p_monitor->boolQuesWait = boolQuesWait;
     p_monitor->end = 0;
     p_monitor->metodos = &monitorMetodos;
