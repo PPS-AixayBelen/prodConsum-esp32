@@ -78,8 +78,7 @@ int main(){
         pthread_join(c[i], NULL);
     }
 
-    if (DEBUG)
-        Serial.print("\nFinalizo la ejecucion\n");
+    Serial.print("\nFinalizo la ejecucion\n");
         
     monitor->metodos->cleanMonitor(monitor);
     rdp.metodos->cleanRDP(&rdp);

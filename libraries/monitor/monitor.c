@@ -3,28 +3,28 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-/**
- * @brief Concatena la cadena de caracteres que corresponde a la transicion
- *  disparada en la variable logInvTransicion de monitor, aloca la memoria 
- * necesaria para esto.
- * 
- * @param monitor 
- * @param index Indice que corresponde a la transicion disparada.
- */
-void logInvarianteTransicion(monitor_o *monitor, int index)
-{
-    char *transicion[4] = {"T0", "T1", "T2", "T3"};
-    if (monitor->logInvTransicion == NULL)
-    {
-        monitor->logInvTransicion = (char *)malloc(sizeof(char) * 3);
-        strcpy(monitor->logInvTransicion, transicion[index]);
-    }
-    else
-    {
-        monitor->logInvTransicion = (char *)realloc(monitor->logInvTransicion, sizeof(char) * (strlen(monitor->logInvTransicion) + 3));
-        strcat(monitor->logInvTransicion, transicion[index]);
-    }
-}
+// /**
+//  * @brief Concatena la cadena de caracteres que corresponde a la transicion
+//  *  disparada en la variable logInvTransicion de monitor, aloca la memoria 
+//  * necesaria para esto.
+//  * 
+//  * @param monitor 
+//  * @param index Indice que corresponde a la transicion disparada.
+//  */
+// void logInvarianteTransicion(monitor_o *monitor, int index)
+// {
+//     char *transicion[4] = {"T0", "T1", "T2", "T3"};
+//     if (monitor->logInvTransicion == NULL)
+//     {
+//         monitor->logInvTransicion = (char *)malloc(sizeof(char) * 3);
+//         strcpy(monitor->logInvTransicion, transicion[index]);
+//     }
+//     else
+//     {
+//         monitor->logInvTransicion = (char *)realloc(monitor->logInvTransicion, sizeof(char) * (strlen(monitor->logInvTransicion) + 3));
+//         strcat(monitor->logInvTransicion, transicion[index]);
+//     }
+// }
 
 /**
  * @brief Verifica los invariantes de plaza de la red de petri. 
@@ -53,7 +53,7 @@ int verifyMInvariants(monitor_o *monitor)
 void cleanMonitor(monitor_o *monitor)
 {
     free(monitor->politica);
-    free(monitor->logInvTransicion);
+    // free(monitor->logInvTransicion);
 }
 
 /**
@@ -83,7 +83,7 @@ void signalPoliticMonitor(monitor_o *monitor, int index)
     if (monitor->rdp->metodos->ifEnd(monitor->rdp))
     { // Si la politica devuelve -1 es porque no pudo despertar a nadie, me fijo si tengo que terminar
         if (DEBUG)
-            stringPrint("vector de disparo vacio o insensibilizado\n");
+            stringPrint("vector de disparo vacio o insensibilizado.\n");
         monitor->end = 1;
 
         finalSignalPolitic(monitor);
@@ -131,7 +131,7 @@ int shoot(monitor_o *monitor, int index)
         {
             if(shootResult==ERROR)
             {
-                stringPrint("ERROR DE ALOCACION. \n");
+                stringPrint("ERROR DE ALOCACION.\n");
                 exit(1);
             }
             if (monitor->end) // si ya se llego al final de la ejecucion, no se puede disparar nada
@@ -141,18 +141,29 @@ int shoot(monitor_o *monitor, int index)
             }
 
             if (DEBUG)
-                stringPrint("me fui a dormir disparando \n");
-                //printf("me fui a dormir disparando %d, con shootResult = %d \n", index, shootResult);
+            {
+                char aux2[100]="";
+                strcat(aux2,"me fui a dormir disparando ");
+                char aux[10]="";
+                itoa( index,aux,10);
+                strcat(aux2,aux);
+                strcat(aux2,", con shootResult = ");
+                char aux3[10] = "";
+                itoa(shootResult,aux3,10);
+                strcat(aux2,aux3);
+                strcat(aux2,"\n");
+                stringPrint(aux2);
+            }
 
             monitor->boolQuesWait[index] += 1; // se setea un 1 en la transicion en la que se durmio el hilo
             pthread_cond_wait(&(monitor->espera[index]), &(monitor->mutex));
         }
         else if (shootResult == 0)
         {
-            if (TEST_INVARIANTS)
-            {
-                logInvarianteTransicion(monitor, index);
-            }
+            // if (TEST_INVARIANTS)
+            // {
+            //     logInvarianteTransicion(monitor, index);
+            // }
 
             if (monitor->boolQuesWait[index] > 0)
             {
@@ -173,7 +184,7 @@ int shoot(monitor_o *monitor, int index)
     {
         if (!verifyMInvariants(monitor))
         {
-            stringPrint("Error de invariantes\n");
+            stringPrint("Error de invariantes.\n");
             exit(1); // rompiose
         }
     }
@@ -209,7 +220,7 @@ extern int new_monitor(monitor_o *p_monitor, pthread_mutex_t mutex, pthread_cond
     p_monitor->rdp = rdp;
     p_monitor->mutex = mutex;
     p_monitor->espera = espera;
-    p_monitor->logInvTransicion = NULL;
+    // p_monitor->logInvTransicion = NULL;
     p_monitor->boolQuesWait = boolQuesWait;
     p_monitor->end = 0;
     p_monitor->metodos = &monitorMetodos;

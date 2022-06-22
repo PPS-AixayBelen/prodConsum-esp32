@@ -9,7 +9,7 @@ void cargar_vector(o_vector* vector, char *v);
 
 int alloc_matriz(o_matriz *p_matriz);
 void free_matriz(o_matriz *p_matriz);
-int cargar_matriz_file(o_matriz *p_matriz, char *nombreArchivo);
+int cargar_matriz_string(o_matriz *p_matriz, char *matriz);
 
 struct vector_methods v_methods = {
     .alloc_vector = alloc_vector,
@@ -21,7 +21,7 @@ struct vector_methods v_methods = {
 struct matriz_methods m_methods = {
     .alloc_matriz = alloc_matriz,
     .free_matriz = free_matriz,
-    .cargar_matriz_file = cargar_matriz_file};
+    .cargar_matriz_string = cargar_matriz_string};
 
 /**
  * @brief Aloca memoria para un vector cuyo tamaño esta especificado en la variable size de p_vector.
@@ -50,12 +50,17 @@ int alloc_vector(o_vector *p_vector)
  */
 void print(o_vector p_vector)
 {
-    stringPrint("{ ");
-    // for (int i = 0; i < p_vector.size; i++)
-    // {
-    //     Serial.print("%d ", p_vector.vector[i]);
-    // }
-    stringPrint("}\n");
+    char aux [100]="";
+    strcat(aux,"{ ");
+    for (int i = 0; i < p_vector.size; i++)
+    {
+        char aux2[10]="";
+        itoa(p_vector.vector[i],aux2,10);
+        strcat(aux,aux2);
+        strcat(aux," ");
+    }
+    strcat(aux,"}\n");
+    stringPrint(aux);
 }
 
 /**
@@ -145,34 +150,29 @@ int copy(o_vector dst, o_vector src)
 }
 
 /**
- * @brief Carga desde un archivo de nombre nombreArchivo una matriz en la varible matriz de p_matriz
+ * @brief Carga desde un string matriz una matriz en la varible matriz de p_matriz
  * 
  * @param p_matriz Puntero a la estructura donde se debe cargar la matriz
- * @param nombreArchivo Cadena de caracteres con el nombre del archivo donde se encuentra la matriz
- * @return int -1 si ocurre un error al abrir el archivo, 0 si la carga se realiza correctamente.
+ * @param matriz Cadena de caracteres con la matriz
+ * @return 0 si la carga se realiza correctamente.
  */
-int cargar_matriz_file(o_matriz *p_matriz, char *nombreArchivo)
+int cargar_matriz_string(o_matriz *p_matriz, char *matriz)
 {
-    FILE *archivo = fopen(nombreArchivo, "r");
-    char linea[30];
     char *token;
-    int temp;
-    if (archivo == NULL)
-    {
-        stringPrint("Error en apertura de archivo");
-        return READ_FILE_ERROR;
-    }
+    token = strtok(matriz," ");
+    p_matriz->matriz[0][0] = atoi(token);
+    int j = 1;
 
     for (int i = 0; i < p_matriz->filas; i++)
     {
-        for (int j = 0; j < p_matriz->columnas; j++)
+        for (j; j < p_matriz->columnas; j++)
         {
-            fscanf(archivo, "%d", &temp);
-            p_matriz->matriz[i][j] = temp;
+            token = strtok(NULL, " ");
+            p_matriz->matriz[i][j] = atoi(token);
         }
+        j=0;
     }
 
-    fclose(archivo);
     return READ_FILE_OK;
 }
 

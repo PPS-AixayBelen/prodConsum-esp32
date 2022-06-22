@@ -12,8 +12,9 @@ void *run(cpuProcess_o *cpuProcess)
 {
 
     if (DEBUG)
-        stringPrint("Voy a disparar\n");
-        //printf("VOY A DISPARAR: %d y soy el hilo con id %d\n", cpuProcess->processList[0], cpuProcess->id);
+    {
+        stringPrintWithParam("VOY A DISPARAR: ",cpuProcess->processList[0]," y soy el hilo con id ",cpuProcess->id);
+    }
     // sleep(1);
     int shootResult = 0;
     while (1)
@@ -21,19 +22,26 @@ void *run(cpuProcess_o *cpuProcess)
         for (int i = 0; i < (cpuProcess->processNum); i++)
         {
             if (DEBUG)
-                stringPrint("Nro de transicion a disparar\n");
-                //printf("Nro de transicion a disparar: %d y soy el hilo con id %d\n", cpuProcess->processList[i], cpuProcess->id);
+                stringPrintWithParam("Nro de transicion a disparar: ",cpuProcess->processList[i]," y soy el hilo con id ",cpuProcess->id);
+                
             shootResult = cpuProcess->monitor->metodos->shoot(cpuProcess->monitor, cpuProcess->processList[i]);
 
             if (DEBUG)
-                stringPrint("shootResult\n");
-                //printf("shootResult - %d disparo- %d\n", shootResult, cpuProcess->processList[i]);
+            stringPrintWithParam("shootResult - ",shootResult," disparo- ",cpuProcess->processList[i]);
+            
 
             if (shootResult == -1)
             {
                 if (DEBUG)
-                    stringPrint("Finalizado hilo con id");
-                    //printf("Finalizado hilo con id: %d\n", cpuProcess->id);
+                {
+                    char aux2[100]="";
+                    strcat(aux2,"Finalizado hilo con id: ");
+                    char aux[10]="";
+                    itoa(cpuProcess->id,aux,10);
+                    strcat(aux2,aux);
+                    strcat(aux2,"\n");
+                    stringPrint(aux2);
+                }
                 return NULL;
             }
         }

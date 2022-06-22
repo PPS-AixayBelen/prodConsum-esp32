@@ -4,7 +4,6 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
-#include "printUtils.h"
 
 #define ALLOC_ERROR -1
 #define ALLOC_OK 0
@@ -34,7 +33,7 @@ struct matriz_methods
 {
     int (*alloc_matriz)(o_matriz *);
     void (*free_matriz)(o_matriz *);
-    int (*cargar_matriz_file)(o_matriz *, char *);
+    int (*cargar_matriz_string)(o_matriz *, char *);
 };
 
 struct matriz
@@ -45,18 +44,7 @@ struct matriz
     struct matriz_methods *metodos;
 };
 
-
-#ifdef __cplusplus
-extern "C" {
-#endif // __cplusplus
-
-    int new_vector(o_vector *p_v, int v_size);
-    int new_matriz(o_matriz *p_m, int columnas, int filas);
-
-#ifdef __cplusplus
-}
-
-#endif // __cplusplus
+extern int new_vector(o_vector *p_v, int v_size);
+extern int new_matriz(o_matriz *p_m, int columnas, int filas);
 
 #endif
-

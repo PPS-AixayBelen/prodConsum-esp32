@@ -13,7 +13,7 @@
 #define TRANSITIONS 4
 #define PLACES 7
 #define BUFFERS 2
-#define DEBUG 1
+#define DEBUG 0
 
 #define ERROR -5
 typedef struct rdp rdp_o;

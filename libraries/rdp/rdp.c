@@ -1,5 +1,4 @@
 #include "rdp.h"
-//#include "leerMatriz.h"
 #include "time.h"
 #include <stdio.h>
 #include <stdlib.h>
@@ -50,13 +49,16 @@ extern int new_rdp(rdp_o *p_rdp)
     {
         return ALLOC_ERROR;
     }
-    p_rdp->Ineg.metodos->cargar_matriz_file(&p_rdp->Ineg, "Ineg");
+    char Ineg[56] = "0 1 0 0 1 0 0 0 1 0 0 0 0 0 1 0 0 0 0 1 1 1 0 0 0 1 0 0";
+    p_rdp->Ineg.metodos->cargar_matriz_string(&p_rdp->Ineg, Ineg);
 
     if (new_matriz(&p_rdp->I, PLACES, TRANSITIONS) == ALLOC_ERROR)
     {
         return ALLOC_ERROR;
     }
-    p_rdp->Ineg.metodos->cargar_matriz_file(&p_rdp->I, "Imatriz");
+    char Imatriz[64] = "0 -1 0 1 -1 0 1 0 -1 0 0 1 1 0 -1 0 0 1 0 -1 -1 -1 1 1 0 -1 1 0";
+    p_rdp->Ineg.metodos->cargar_matriz_string(&p_rdp->I, Imatriz);
+
 
     // TODO: Pasar a funcion que inicialice?
     for (int i = 0; i < TRANSITIONS; i++)
@@ -168,18 +170,27 @@ int isPos(rdp_o *rdp, int *index)
         return ERROR;
     }
 
-    // if (DEBUG)
-        // Serial.print("Nuevo marcado: \n");
+    if (DEBUG)
+        stringPrint("Nuevo marcado: \n");
     for (int n = 0; n < PLACES; n++) // Si algun numero del nuevo vector de marcado es negativo, no puedo dispararla
     {
         mPrima.vector[n] = rdp->M.vector[n] + aux2.vector[n]; // Sumo para obtener el nuevo vector de marcado
-        // if (DEBUG)
-            // Serial.print("%d %s \n", mPrima.vector[n], M_name[n]);
+        if (DEBUG)
+        {
+            char aux2[100]="";
+            char aux[10]="";
+            itoa(mPrima.vector[n],aux,10);
+            strcat(aux2,aux);
+            strcat(aux2," ");
+            strcat(aux2, M_name[n]);
+            strcat(aux2,"\n");
+            stringPrint(aux2);
+        }
 
         if (mPrima.vector[n] < 0)
         {
             if (DEBUG)
-                stringPrint("la transicion no se puede disparar, marcado resultante negativo\n");
+                stringPrint("la transicion no se puede disparar, marcado resultante negativo.\n");
             aux.v_methods->free_vector(&aux);
             aux2.v_methods->free_vector(&aux2);
             mPrima.v_methods->free_vector(&mPrima);
